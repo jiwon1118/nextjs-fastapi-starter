@@ -20,7 +20,7 @@ def age_calculator(birthday: str) -> Dict[str, str]:
     """
     # random_age = random.randint(0, 100)
     
-    today = datetime.date.today()
+    today = date.today()
     birth_date = datetime.strptime(birthday, "%Y-%m-%d").date() 
     
 
