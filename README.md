@@ -1,8 +1,6 @@
 # copycat_나이계산기
 
-
 ### Use
-
 - https://
 
 ### Ref
