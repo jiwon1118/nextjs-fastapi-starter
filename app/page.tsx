@@ -7,8 +7,8 @@ import { useState } from "react";
 export default function Home() {
   const [birthday, setBirthday] = useState("");
   const [age, setAge] = useState<number | null>(null);
-  const [zodiac, setZodiac] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [zodiac, setZodiac] = useState<string | null>(null);
 
   const handleCalculateAge = async () => {
     setError(null);
