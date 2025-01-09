@@ -32,10 +32,20 @@ def age_calculator(birthday: str) -> Dict[str, str]:
     else:
         age = today.year - birth_date.year - 1
 
+    # 띠 계산 로직 코드 작성
+    # 1900년생 이후만 계산 가능
+    
+    zodiac_animals = [🐀쥐,🐂소, 🐅호랑이, 🐇토끼, 🐉용, 🐍뱀, 🐎말, 🐐양, 🐒원숭이, 🐓닭, 🐕개, 🐖돼지]
+    
+    zodiac_index = (birth_date.year - 1900) % 12
+    zodiac = zodiac_animals[zodiac_index]
+
+
+
 
     return {
             "birthday": birthday,
-            "age": str(age),
+            "age": str(age) + str(zodiac),
             "basedate": str(today),
             "message": "Age calculated successfully!"
             }
