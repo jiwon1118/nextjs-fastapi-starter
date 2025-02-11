@@ -3,6 +3,10 @@ from datetime import datetime, date
 from typing import Dict
 import random
 import pandas as pd
+import psycopg
+from psycopg.rows import dict_row
+from dotenv import load_dotenv
+import os
 
 
 ### Create FastAPI instance with custom docs and openapi url
@@ -44,7 +48,6 @@ def age_calculator(birthday: str) -> Dict[str, str]:
 
 
 
-
     return {
             "birthday": birthday,
             "age": str(age),
@@ -53,15 +56,37 @@ def age_calculator(birthday: str) -> Dict[str, str]:
             "message": "Age calculated successfully!"
             }
 
+
+     
+load_dotenv()
+
+DB_CONFIG = {
+    "user": os.getenv("DB_USERNAME"),
+    "dbname": os.getenv("DB_NAME"),
+    "password": os.getenv("DB_PASSWORD"),
+    "host": os.getenv("DB_HOST"),
+    "port": os.getenv("DB_PORT")
+}
+
 @app.get("/api/py/select_all")
-def select_all():
-    import json
-    # next 
-    json_data = '''[
-        {"id": 1, "name": "Kim"},
-        {"id": 2, "name": "Lee"}
-    ]'''
-    data = json.loads(json_data)
-    df = pd.DataFrame(data)
-    return df.to_dict(orient="records")
-    #return {"message": "Hello from FastAPI"}
+def select_table():
+    query = """
+    SELECT
+        l.menu_name,
+        m.name,
+        l.dt
+    FROM
+        lunch_menu l
+        inner join member m
+        on l.member_id = m.id
+    ORDER BY
+        dt DESC;
+    ;
+    """
+    with psycopg.connect(**DB_CONFIG, row_factory=dict_row) as conn:
+        cur = conn.execute(query)
+        rows = cur.fetchall()
+        return rows
+
+    #df = pd.DataFrame(rows, columns=['menu_name','member_name','dt'])
+    #return df
