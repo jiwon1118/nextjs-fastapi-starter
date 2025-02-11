@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from datetime import datetime, date
 from typing import Dict
 import random
+import pandas as pd
+
 
 ### Create FastAPI instance with custom docs and openapi url
 app = FastAPI(docs_url="/api/py/docs", openapi_url="/api/py/openapi.json")
@@ -50,3 +52,17 @@ def age_calculator(birthday: str) -> Dict[str, str]:
             "basedate": str(today),
             "message": "Age calculated successfully!"
             }
+
+@app.get("/api/py/select_all")
+def select_all():
+    import json
+    # pandas dataframe을 임의로 하나 만들기
+    # 임의로 만든 dataframe을 아래와 같은 형식으로 return
+    json_data = '''[
+        {"id": 1, "name": "Kim"},
+        {"id": 2, "name": "Lee"}
+    ]'''
+    data = json.loads(json_data)
+    df = pd.DataFrame(data)
+    return df.to_dict(orient="records")
+    #return {"message": "Hello from FastAPI"}

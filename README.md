@@ -44,7 +44,8 @@ $ python -V
 python 3.10.12
 # $ python -m venv venv
 $ source venv/bin/activate
-$ uvicorn api.index:app --reload
+$ pip install -r requirements.txt
+$ uvicorn api.index:app --reload    # 127.0.0.1:8000/api/py/docs
 ```
 
 
