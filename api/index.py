@@ -70,6 +70,7 @@ DB_CONFIG = {
 
 @app.get("/api/py/select_all")
 def select_table():
+    
     with psycopg.connect(**DB_CONFIG, row_factory=dict_row) as conn:
         cur = conn.execute("SELECT * FROM view_select_all")
         rows = cur.fetchall()
