@@ -56,8 +56,7 @@ def age_calculator(birthday: str) -> Dict[str, str]:
 @app.get("/api/py/select_all")
 def select_all():
     import json
-    # pandas dataframe을 임의로 하나 만들기
-    # 임의로 만든 dataframe을 아래와 같은 형식으로 return
+    # next 
     json_data = '''[
         {"id": 1, "name": "Kim"},
         {"id": 2, "name": "Lee"}
